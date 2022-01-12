@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: go-ip
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            component: webGo
+    template:
+        metadata:
+            labels:
+                component: webGo
+        spec:
+            containers:
+                - name: client
+                  image: boneb/go_multi
+                  ports:
+                      - containerPort: 8081

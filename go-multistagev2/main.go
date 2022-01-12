@@ -13,7 +13,7 @@ func main() {
     time.Sleep(12 * time.Second)
 
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "Pozdrav iz multistage slike GO-ja. Lahko obiscete tudi /drugo")
+        fmt.Fprintf(w, "Pozdrav iz multistage slike VERZIJE 2 GO-ja. Lahko obiscete tudi /drugo")
     })
     http.HandleFunc("/ready", func(w http.ResponseWriter, r *http.Request) {
         if(rand.Intn(100) % 5 == 0) {

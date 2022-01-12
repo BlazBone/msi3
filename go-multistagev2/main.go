@@ -4,25 +4,20 @@ import (
     "fmt"
     "log"
     "net/http"
-    "math/rand"
     "time"
 )
 
 func main() {
 
-    time.Sleep(12 * time.Second)
+    time.Sleep(7 * time.Second)
 
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
         fmt.Fprintf(w, "Pozdrav iz multistage slike VERZIJE 2 GO-ja. Lahko obiscete tudi /drugo")
     })
     http.HandleFunc("/ready", func(w http.ResponseWriter, r *http.Request) {
-        if(rand.Intn(100) % 5 == 0) {
-
-            fmt.Fprintf(w, "OK")
-        }else {
-            w.WriteHeader(500)
-            fmt.Fprint(w, "err")
-        }
+        time.Sleep(1 * time.Second)
+        fmt.Fprintf(w, "Yes")
+        
     })
     http.HandleFunc("/live", func(w http.ResponseWriter, r *http.Request) {
      

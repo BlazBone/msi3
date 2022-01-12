@@ -1,9 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: go-ip
+    labels:
+        app: hello
+    name: hello
 spec:
     replicas: 3
+    selector:
+        matchLabels:
+            app: hello
     strategy:
         rollingUpdate:
             maxSurge: 0
@@ -13,29 +18,26 @@ spec:
     template:
         metadata:
             labels:
-                app: go-ip
-    selector:
-        matchLabels:
-            component: webGo
-    template:
-        metadata:
-            labels:
-                component: webGo
+                app: hello
+                version: v3
         spec:
             containers:
-                - name: client
-                  image: boneb/go_multi:read
+                - image: boneb/go_multi:read
+                  imagePullPolicy: IfNotPresent
+                  name: hello
                   ports:
                       - containerPort: 8081
                   readinessProbe:
                       httpGet:
-                          path: go_multi/ready
-                          port: 80
+                          path: /ready
+                          port: 8081
                       initialDelaySeconds: 15
                       periodSeconds: 5
                   livenessProbe:
                       httpGet:
-                          path: go_multi/live
-                          port: 80
+                          path: /live
+                          port: 8081
                       initialDelaySeconds: 15
                       periodSeconds: 5
+            restartPolicy: Always
+            terminationGracePeriodSeconds: 30

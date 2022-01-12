@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
     name: client2-deployment
 spec:
-    replicas: 3
+    replicas: 1
     selector:
         matchLabels:
-            component: web
+            component: web2
     template:
         metadata:
             labels:
-                component: web
+                component: web2
         spec:
             containers:
                 - name: client

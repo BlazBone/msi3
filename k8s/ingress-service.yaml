@@ -25,3 +25,10 @@ spec:
                             name: server-cluster-ip-service
                             port:
                                 number: 5000
+                  - path: /go_multi/?(.*)
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: go-ip
+                            port:
+                                number: 8081

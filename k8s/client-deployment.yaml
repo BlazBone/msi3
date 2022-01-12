@@ -3,17 +3,17 @@ kind: Deployment
 metadata:
     name: client-deployment
 spec:
-    replicas: 3
+    replicas: 1
     selector:
         matchLabels:
-            component: web
+            component: web1
     template:
         metadata:
             labels:
-                component: web
+                component: web1
         spec:
             containers:
                 - name: client
-                  image: boneb/ocene
+                  image: boneb/ocene:light
                   ports:
                       - containerPort: 3000

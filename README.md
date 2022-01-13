@@ -10,7 +10,7 @@ Golang image, je simple server, ki streze na 8081.
 
 ## demo video
 
-[Video](https://drive.google.com/file/d/1zAe4R-sztnJT1hkLy6AJvzZHE9K0iJfS/view?usp=sharing)
+[Video](https://drive.google.com/file/d/1oyj8X4ntrEwDR5W4fSGEnS3o3y_JHtu1/view?usp=sharing)
 
 ## zazenemo minikube
 

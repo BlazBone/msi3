@@ -25,6 +25,9 @@ cd msi3
 
 ## zazenemo kubectl
 
+(potrebno je tudi generirati secret
+kubectl create secret generic pgpassword --from-literal PGPASSWORD=12345
+) - ta nam naredi presprosto geslo samo za demonstracijo
 kubectl apply -f k8s
 
 odpre nam 2 vrsti clienta, server, podatkovno bazo ter go server(3x), ki je bil zgrajen iz multistage builda

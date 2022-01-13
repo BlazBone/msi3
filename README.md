@@ -1,49 +1,70 @@
 # NALOGA
 
-to je druga naloga pri predmetu MSI, kjer sem se odlocil, da deployam full stack web app + golang server, katerega image je multistage build.
-webb app ima za frontend REACT, in je dostopen na portu 3000 imamo express backend/api, na portu 5000, ki nam dostopa do podatkovne baze, zaz branje in pisanje.
-Za podatkovno bazo sem uporabil POSTGRESSQL imamo pa tudi ADMINER, s katerim lahko na portu 8080 dostopamo do podatkovne baze preko browserja.
+to je tretja naloga pri predmetu MSI, kjer sem se odlocil, da deployam full stack web app + golang server, katerega image je multistage build.
+webb app ima za frontend REACT, imamo express backend/api, ki nam dostopa do podatkovne baze, za branje in pisanje.
+Za podatkovno bazo sem uporabil POSTGRESSQL.
+Aplikacija pa preprosta redovalnica ocen.
 Golang image, je simple server, ki streze na 8081.
 
 ## uporaba:
 
--   git clone https://github.com/BlazBone/msi2.git
--   cd msi2
--   docker compose up
--   pocakamo
-    ![alt text](/images/running.png)
-    (vidimo vse kontejnerje uspesno teci)
+## demo video
+
+[Video](https://drive.google.com/file/d/1zAe4R-sztnJT1hkLy6AJvzZHE9K0iJfS/view?usp=sharing)
+
+## zazenemo minikube
+
+minikube start
+minikube addons enable ingress
+minikube tunnel
+
+## pripravimo repozitorij
+
+git clone https://github.com/BlazBone/msi3
+cd msi3
+
+## zazenemo kubectl
+
+kubectl apply -f k8s
+
+odpre nam 2 vrsti clienta, server, podatkovno bazo ter go server(3x), ki je bil zgrajen iz multistage builda
+vsi images, ki jih uporabimo so na mojemu dockerhubu, v tem repozitorju, pa so se vedno dockerfiles tako da jih lahko tudi sami buildate.
+
+## broweser
+
+pregledamo, kako aplikacije deluje. Potrebuje nekaj casa, da se zazene.
+localhost
+localhost/api/now
+localhost/go_multi
+
+## odpremo 2 dodatna terminala
+
+omogocata nam spremljanje postavitve novih podov go serverja
+
+-   kubectl get deployment go-ip -o wide --watch
+-   kubectl get pods --watch
+
+## green-blue za client ter readiness updatee za go server hkrati
+
+clientu se spremeni barva(samo kot indikator zamenjave)
+go serverju pa se rahlo spremeni tekst ki ga vraca.
+
+-   kubectl apply -f k8sv2
 
 ## frontend
 
--   http://localhost:3000
+-   http://localhost
 -   lahko vpisemo oceno(int) ter predmet
 -   kliknemo dodaj v redovalnico
 -   ter prikazemo redovalnico z drugim gumbom
--   (zahteve se posljejo na nas api, ki dela na portu 5000) /vseOcene(get), /dodajOceno(post)
     ![alt text](/images/front.png)
-
-## backend
-
--   http://localhost:5000
--   http://localhost:5000/now nam vrne trenutne cas. tako lahko samostojno zazenemo in preverimo delovanje api kar v browserju
--   http://localhost:5000/dodajOceno sprejme post ter podatka, ki sta bila v inputu na clientu ter ju vnese v bazo
--   http://localhost:5000/vseOcene naredi preprosto poizvedbo SELECT \* FROM ocene; ter vrne rezultat clientu, da ga ta lahko izpise
-    ![alt text](/images/back.png)
 
 ## golang
 
--   http://localhost:8081
--   http://localhost:8081/drugo kratek opis razlike slik
+-   http://localhost/go_multi/
+-   http://localhost/go_multi/drugo kratek opis razlike slik
     ![alt text](/images/golang.png)
-
-## adminer
-
--   http://localhost:8080
--   username myadmin geslo mypassword ter baza postgresql
--   pogledamo lahko, da se ustvari testna tabela, preko init.sql skripte. Ce smo dodali kaksno oceno, pa imamo tudi tabelo Ocene
-    ![alt text](/images/database.png)
 
 ## db
 
--   najbolj smiselna uporaba volumes, saj ko git clonamo mapa s podatki ne obstaja, to naredi docker in v njo posilja vse podatke, ki so shranjeni v bazi v kontejnerju, da ko se ta konteiner zapre ne izgubimo podatkov. Ti se ob ponovnem zagonu prepisejo iz mape.
+-   smisenla za uporabo presistent voliumes

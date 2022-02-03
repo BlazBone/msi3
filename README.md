@@ -80,7 +80,7 @@ We only want to see our go server here, since this is the one we will be having 
 kubectl get pods --watch
 ```
 
-## 6 green-blue for client and rolling update for GO server
+## **6** blue-green for client and rolling update for GO server
 
 On the client side of the app we switch the image to the one having dark theme.
 Go server takes some time(it must be ready and alive) but eventially the 3 pods will change to the new version that outpust a slightly modified string.

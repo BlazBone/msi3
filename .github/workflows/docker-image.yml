@@ -19,9 +19,9 @@ jobs:
               run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
             - name: Docker build go_multi
-              run: | 
-              docker build ./go-multistage --tag boneb/go_multi
-              docker build ./go-multistagev2 --tag boneb/go_multi:read
+              run: |
+                  docker build ./go-multistage --tag boneb/go_multi
+                  docker build ./go-multistagev2 --tag boneb/go_multi:read
             - name: Docker build ocene
               run: docker build ./ocene --tag  boneb/ocene:light
             - name: Docker build api

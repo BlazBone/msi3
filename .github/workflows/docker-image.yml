@@ -27,7 +27,7 @@ jobs:
             - name: Docker build api
               run: docker build ./api --tag boneb/api
             - name: Docker build ocene:dark
-              run: docker build ./ocene --tag  boneb/ocene:dark
+              run: docker build ./ocene_dark --tag  boneb/ocene:dark
             - name: docker push
               run: |
                   docker push boneb/go_multi

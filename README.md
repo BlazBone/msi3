@@ -8,10 +8,16 @@ Next to the app we also spin up a multistage minimal build image of a golang ser
 
 Blue green update will change the frontend of the aplication(mainly colors so that the change is obvious), rolling update will be done on the GO server where the "new" version will return a different a string.
 
+Also has Gihthub actions to build and push docker images on pull/push.
+
 # Demo video
 
 Here you can see video showing everything.
-[Video](https://drive.google.com/file/d/1oyj8X4ntrEwDR5W4fSGEnS3o3y_JHtu1/view?usp=sharing)
+
+https://user-images.githubusercontent.com/79161952/152775388-41700094-86b6-40a0-9d31-de65ec89bb83.mp4
+
+[Video](https://drive.google.com/file/d/1oyj8X4ntrEwDR5W4fSGEnS3o3y_JHtu1/view?usp=sharing) (google drive if above doesnt work)
+
 
 # Steps for setting up
 

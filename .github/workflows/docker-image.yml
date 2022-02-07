@@ -20,15 +20,17 @@ jobs:
 
             - name: Docker build go_multi
               run: docker build ./go-multistage --tag boneb/go_multi
+              run: docker build ./go-multistagev2 --tag boneb/go_multi:read
             - name: Docker build ocene
-              run: docker build ./ocene --tag  boneb/ocene
+              run: docker build ./ocene --tag  boneb/ocene:light
             - name: Docker build api
               run: docker build ./api --tag boneb/api
             - name: Docker build ocene:dark
               run: docker build ./ocene --tag  boneb/ocene:dark
             - name: docker push
               run: |
-                  docker push boneb/go_multi:latest
-                  docker push boneb/ocene:latest
-                  docker push boneb/api:latest
+                  docker push boneb/go_multi
+                  docker push boneb/go_multi:read
+                  docker push boneb/ocene:light
+                  docker push boneb/api
                   docker push boneb/ocene:dark

@@ -12,9 +12,25 @@ jobs:
 
         steps:
             - uses: actions/checkout@v2
+            - name: Docker login
+              env: 
+                DOCKER_USER: ${{secrets.DOCKER_USER}} 
+                DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}} 
+              run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+            
             - name: Docker build go_multi
-              run: docker build ./go-multistage --file Dockerfile --tag boneb/go_multi:$(date +%s)
+              run: docker build ./go-multistage --file Dockerfile --tag boneb/go_multi
             - name: Docker build ocene
-              run: docker build ./ocene --file Dockerfile --tag  boneb/ocene:$(date +%s)
+              run: docker build ./ocene --file Dockerfile --tag  boneb/ocene
             - name: Docker build api
-              run: docker build ./api --file Dockerfile --tag boneb/api:$(date +%s)
+              run: docker build ./api --file Dockerfile --tag boneb/api
+            - name: Docker build ocene:dark
+              run: docker build ./ocene --file Dockerfile --tag  boneb/ocene:dark
+            - name: docker push
+              run: |
+                docker push boneb/go_multi:latest
+                docker push boneb/ocene:latest
+                docker push boneb/api:latest
+                docker push boneb/ocene:dark
+                
+              

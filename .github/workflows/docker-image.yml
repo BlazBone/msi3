@@ -1,18 +1,20 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
 jobs:
+    build:
+        runs-on: ubuntu-latest
 
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+        steps:
+            - uses: actions/checkout@v2
+            - name: Docker build go_multi
+              run: docker build ./go-multistage --file Dockerfile --tag boneb/go_multi:$(date +%s)
+            - name: Docker build ocene
+              run: docker build ./ocene --file Dockerfile --tag  boneb/ocene:$(date +%s)
+            - name: Docker build api
+              run: docker build ./api --file Dockerfile --tag boneb/api:$(date +%s)
